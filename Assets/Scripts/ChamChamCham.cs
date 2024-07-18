@@ -83,15 +83,9 @@ public class ChamChamCham : MonoBehaviour
         else
         {
             lose.SetActive(true);
+            GameManager.instance.Lose();
         }
 
         startTimer = true;
     }
 }
-
-
-// 버튼 누르기
-// 값 받기
-// 소 얼굴 랜덤
-// 비교
-// 결과

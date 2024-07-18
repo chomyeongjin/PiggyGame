@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCol : MonoBehaviour
 {
-    public GameObject pinkMoon;
-    public GameObject redMoon;
-    public GameObject WhiteMoon;
 
     // Start is called before the first frame update
     void Start()
@@ -26,21 +23,22 @@ public class PlayerCol : MonoBehaviour
         if (collision.gameObject.name == "GreenMoon")
         {
             SceneManager.LoadScene("ChamChamCham");
-            Destroy(collision.gameObject);
-            redMoon.SetActive(true);
+            collision.gameObject.SetActive(false);
         }
         else if (collision.gameObject.name == "RedMoon")
         {
+            SceneManager.LoadScene("RockScissorPaper");
+            collision.gameObject.SetActive(false);
+        }
+        else if(collision.gameObject.name == "PinkMoon")
+        {
             SceneManager.LoadScene("Trickery");
-            Destroy(collision.gameObject);
-            pinkMoon.SetActive(true);
+            collision.gameObject.SetActive(false);
         }
         else if (collision.gameObject.name == "Sun")
         {
-            //SceneManager.LoadScene("EndScene");
+            SceneManager.LoadScene("EndScene");
             Debug.Log("d");
         }
     }
 }
-
-// 달위치 랜덤?

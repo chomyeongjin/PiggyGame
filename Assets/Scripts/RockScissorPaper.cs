@@ -18,7 +18,7 @@ public class RockScissorPaper : MonoBehaviour
     int tmp = 2;
 
     float timer = 0;
-    float wait = 1.5f;
+    float wait = 0.5f;
 
     bool startTimer = false;
 
@@ -61,13 +61,15 @@ public class RockScissorPaper : MonoBehaviour
         {
             hide.SetActive(false);
             tmp = 0;
+            GameManager.instance.Win();
         } else
         {
             hide.SetActive(false);
             tmp = 1;
+            GameManager.instance.Lose();
         }
 
-        Invoke("isWin", 3.0f);
+        Invoke("isWin", 1.5f);
     }
 
     public void OnClickScissorBtn()
@@ -76,13 +78,15 @@ public class RockScissorPaper : MonoBehaviour
         {
             hide.SetActive(false);
             tmp = 0;
+            GameManager.instance.Win();
         } else
         {
             hide.SetActive(false);
             tmp = 1;
+            GameManager.instance.Lose();
         }
 
-        Invoke("isWin", 3.0f);
+        Invoke("isWin", 1.5f);
     }
 
     public void OnClickPaperBtn()
@@ -91,14 +95,16 @@ public class RockScissorPaper : MonoBehaviour
         {
             hide.SetActive(false);
             tmp = 0;
+            GameManager.instance.Win();
         }
         else
         {
             hide.SetActive(false);
             tmp = 1;
+            GameManager.instance.Lose();
         }
 
-        Invoke("isWin", 3.0f);
+        Invoke("isWin", 1.5f);
     }
 
     void isWin()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Trickery : MonoBehaviour
@@ -9,6 +10,8 @@ public class Trickery : MonoBehaviour
     public GameObject sheepR;
     public GameObject chicken;
     public GameObject panel;
+    public GameObject winT;
+    public GameObject loseT;
 
     public GameObject q;
 
@@ -24,8 +27,13 @@ public class Trickery : MonoBehaviour
     Vector3 sheepLtgPos;
     Vector3 sheepRstPos;
     Vector3 sheepRtgPos;
-    float lerpDuration = 1.0f; // 이동에 걸리는 시간
+    float lerpDuration = 1.0f;
     float elapsedTime = 0f;
+
+    float timer = 0;
+    float wait = 1.0f;
+    bool startTimer = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +47,7 @@ public class Trickery : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //pig move
         if(isMove && !panel.GetComponent<Panel>().isActive)
         {
             elapsedTime += Time.deltaTime;
@@ -68,17 +77,28 @@ public class Trickery : MonoBehaviour
             Right.interactable = false;
             q.SetActive(false);
         }
+
+        // Scene trans
+        if (startTimer)
+        {
+            timer += Time.deltaTime;
+
+            if (timer > wait)
+            {
+                SceneManager.LoadScene("PixelWorld");
+            }
+        }
     }
 
     void RandomChicken()
     {
-        ran = Random.Range(1, 3);
+        ran = Random.Range(1, 11);
 
-        if(ran == 1)
+        if(ran <= 5)
         {
             chicken.transform.position = sheepL.transform.position;
         }
-        else if(ran == 2)
+        else if(ran > 5)
         {
             chicken.transform.position = sheepR.transform.position;
         }
@@ -92,28 +112,49 @@ public class Trickery : MonoBehaviour
     public void OnClickLBtn()
     {
         isClick = true;
+        sheepL.SetActive(false);
+        sheepR.SetActive(false);
 
-        if(ran == 1)
+        if(ran <= 5)
         {
-            //win
+            Invoke("Win", 2.0f);
         }
-        else if(ran == 2)
+        else if(ran > 5)
         {
-            //lose
+            Invoke("Lose", 2.0f);
         }
     }
 
     public void OnClickRBtn()
     {
         isClick = true;
+        sheepL.SetActive(false);
+        sheepR.SetActive(false);
 
-        if(ran == 2)
+        if (ran > 5)
         {
-            // win
+            Invoke("Win", 2.0f);
+
         }
-        else if(ran == 1)
+        else if(ran <= 5)
         {
-            // lose
+            Invoke("Lose", 2.0f);
         }
+    }
+
+    void Win()
+    {
+        winT.SetActive(true);
+        startTimer = true;
+
+        GameManager.instance.Win();
+    }
+
+    void Lose()
+    {
+        loseT.SetActive(true);
+        startTimer = true;
+
+        GameManager.instance.Lose();
     }
 }

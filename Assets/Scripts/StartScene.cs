@@ -21,6 +21,15 @@ public class StartScene : MonoBehaviour
     {
         SceneManager.LoadScene("PixelWorld");
     }
+
+    public void OnClickExitBtn()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit;
+#endif
+    }
 }
 
 //Exit
