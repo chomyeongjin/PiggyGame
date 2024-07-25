@@ -38,7 +38,7 @@ public class PlayerCol : MonoBehaviour
         else if (collision.gameObject.name == "Sun")
         {
             SceneManager.LoadScene("EndScene");
-            Debug.Log("d");
+            //Debug.Log("d");
         }
     }
 }

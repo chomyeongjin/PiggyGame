@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
     public int speed = 5;
+    public int upSpeed = 3;
     public float jumpForce;
 
     Rigidbody2D playerRb;
     Animator anim;
 
     bool isJump = false;
+    bool isLadder = false;
 
     //bool isStart = false;
 
@@ -67,10 +70,46 @@ public class PlayerMove : MonoBehaviour
         
     }
 
+
+    private void FixedUpdate()
+    {
+        if (isLadder)
+        {
+            // 위아래 키보드
+            float ver = Input.GetAxisRaw("Vertical");
+            playerRb.velocity = new Vector2(playerRb.velocity.x, ver * upSpeed);
+
+            playerRb.gravityScale = 0;
+        }
+        else
+        {
+            playerRb.gravityScale = 1;
+        }
+    }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
+            isJump = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Ladder"))
+        {
+            isLadder = true;
+            isJump = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ladder"))
+        {
+            isLadder = false;
             isJump = false;
         }
     }

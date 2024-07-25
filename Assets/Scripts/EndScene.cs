@@ -47,6 +47,15 @@ public class EndScene : MonoBehaviour
     {
         SceneManager.LoadScene("StartScene");
     }
+
+    public void OnClickExitBtn()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit;
+#endif
+    }
 }
 
 

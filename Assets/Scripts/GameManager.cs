@@ -48,18 +48,38 @@ public class GameManager : MonoBehaviour
         // 씬이 로드될 때마다 scoreT를 다시 찾습니다.
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
-    /*
+    
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-    }*/
+    }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // scoreT 오브젝트를 다시 찾습니다.
-        if (scoreT == null)
+        try
         {
-            scoreT = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+            // scoreT 오브젝트를 다시 찾습니다.
+            if (scoreT == null)
+            {
+                GameObject scoreObject = GameObject.Find("ScoreText");
+                if (scoreObject != null)
+                {
+                    scoreT = scoreObject.GetComponent<TextMeshProUGUI>();
+                    Debug.Log("scoreT 오브젝트를 찾았습니다.");
+                }
+                else
+                {
+                    Debug.Log("현재 씬에는 'ScoreText' 오브젝트가 없습니다.");
+                }
+            }
+            else
+            {
+                Debug.Log("scoreT가 이미 설정되어 있습니다.");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("scoreT를 찾는 중 오류가 발생했습니다 ." + ex.Message);
         }
     }
 
@@ -102,7 +122,7 @@ public class GameManager : MonoBehaviour
                 //Debug.Log(score);
             }
 
-            Invoke("screen", 3.0f);
+            Invoke("screen", 2.0f);
 
         }
 
