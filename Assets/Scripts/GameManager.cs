@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
         }
 
 
-        if(scene.name == "StartScene")
+        if(scene.name == "PixelWorld")
         {
             ObjectActiveOn();
         }
@@ -197,24 +197,23 @@ public class GameManager : MonoBehaviour
 
     public void Hide()
     {
-        Debug.Log(SceneManager.GetActiveScene().name);
         for(int i = 0; i < 4; i++)
         {
             if (managedObj[i].activeSelf)
             {
                 tmp = i;
                 managedObj[tmp].SetActive(false);
-
-                Debug.Log(tmp);
             }
         }
+
+        score = 0;
     }
 
     void ObjectActiveOn()
     {
         if(tmp != -99)
         {
-            managedObj[tmp].SetActive(true);
+            screen();
         }
     }
 }
