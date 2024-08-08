@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get; private set; }
     public GameObject[] managedObj = new GameObject[4];
     public TextMeshProUGUI scoreT;
-
     
 
     bool isWin = false;
@@ -19,12 +18,16 @@ public class GameManager : MonoBehaviour
     int score = 0;
 
 
+    int tmp = -99;
+    
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            
 
             foreach (var obj in managedObj)
             {
@@ -45,7 +48,6 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // 씬이 로드될 때마다 scoreT를 다시 찾습니다.
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     
@@ -58,7 +60,6 @@ public class GameManager : MonoBehaviour
     {
         try
         {
-            // scoreT 오브젝트를 다시 찾습니다.
             if (scoreT == null)
             {
                 GameObject scoreObject = GameObject.Find("ScoreText");
@@ -80,6 +81,12 @@ public class GameManager : MonoBehaviour
         catch (System.Exception ex)
         {
             Debug.LogError("scoreT를 찾는 중 오류가 발생했습니다 ." + ex.Message);
+        }
+
+
+        if(scene.name == "StartScene")
+        {
+            ObjectActiveOn();
         }
     }
 
@@ -105,9 +112,7 @@ public class GameManager : MonoBehaviour
             isWin = false;
 
             score++;
-            //Debug.Log(score);
-
-            Invoke("screen", 3.0f);
+            Invoke("screen", 2.0f);
           
             
         }
@@ -119,7 +124,6 @@ public class GameManager : MonoBehaviour
             if (score != 0)
             {
                 score--;
-                //Debug.Log(score);
             }
 
             Invoke("screen", 2.0f);
@@ -132,13 +136,11 @@ public class GameManager : MonoBehaviour
     public void Win()
     {
         isWin = true;
-        //Debug.Log("win");
     }
 
     public void Lose()
     {
         isLose = true;
-        //Debug.Log("lose");
     }
 
     void screen()
@@ -191,4 +193,32 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+
+    public void Hide()
+    {
+        Debug.Log(SceneManager.GetActiveScene().name);
+        for(int i = 0; i < 4; i++)
+        {
+            if (managedObj[i].activeSelf)
+            {
+                tmp = i;
+                managedObj[tmp].SetActive(false);
+
+                Debug.Log(tmp);
+            }
+        }
+    }
+
+    void ObjectActiveOn()
+    {
+        if(tmp != -99)
+        {
+            managedObj[tmp].SetActive(true);
+        }
+    }
 }
+
+
+
+// ㅜㅜ 홈으로 돌아가도 오브젝트 나타남 ㅠ

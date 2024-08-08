@@ -133,12 +133,12 @@ public class Trickery : MonoBehaviour
 
         if (ran > 5)
         {
-            Invoke("Win", 2.0f);
+            Invoke("Win", 1.5f);
 
         }
         else if(ran <= 5)
         {
-            Invoke("Lose", 2.0f);
+            Invoke("Lose", 1.5f);
         }
     }
 

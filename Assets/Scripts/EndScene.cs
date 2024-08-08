@@ -53,13 +53,7 @@ public class EndScene : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-        Application.Quit;
+        Application.Quit();
 #endif
     }
 }
-
-
-
-// 5초 후에 캔버스 나오게
-// 파티클 하면서 픽셀돼지 -> 카툰돼지로
-// Exit

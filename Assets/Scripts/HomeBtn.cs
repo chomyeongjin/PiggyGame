@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StartScene : MonoBehaviour
+public class HomeBtn : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -17,19 +17,9 @@ public class StartScene : MonoBehaviour
         
     }
 
-    public void OnClickStartBtn()
+    public void OnClickHomeBtn()
     {
-        SceneManager.LoadScene("PixelWorld");
-    }
-
-    public void OnClickExitBtn()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        GameManager.instance.Hide();
+        SceneManager.LoadScene("StartScene");
     }
 }
-
-//Exit

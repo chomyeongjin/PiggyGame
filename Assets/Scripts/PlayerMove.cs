@@ -14,8 +14,7 @@ public class PlayerMove : MonoBehaviour
 
     bool isJump = false;
     bool isLadder = false;
-
-    //bool isStart = false;
+    
 
     SpriteRenderer sr;
 
@@ -52,7 +51,9 @@ public class PlayerMove : MonoBehaviour
         // jump
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if(!isJump)
+            playerRb.gravityScale = 1;
+
+            if (!isJump)
             {
                 playerRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 isJump = true;
@@ -67,10 +68,9 @@ public class PlayerMove : MonoBehaviour
             anim.SetBool("isWalk", false);
         }
 
-        
     }
 
-
+    
     private void FixedUpdate()
     {
         if (isLadder)
